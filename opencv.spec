@@ -5,7 +5,7 @@
 
 Name:           opencv
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Collection of algorithms for computer vision
 
 Group:          Development/Libraries
@@ -61,8 +61,8 @@ This package contains Python bindings for the OpenCV library.
                      samples/python/*.py
 %{__sed} -i 's/^#!.*//' interfaces/swig/python/adaptors.py \
                         interfaces/swig/python/__init__.py
-
-find -name Makefile.in | xargs touch
+# Adjust timestamp on cvconfig.h.in
+touch -r configure.in cvconfig.h.in
 
 %build
 %configure --disable-static --enable-python --enable-apps
@@ -84,8 +84,7 @@ install -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/opencv/samples/c/GNUmakefile
 
 
 %check
-# The test suite fails.
-make check ||:
+make check
 
 
 %clean
@@ -117,19 +116,25 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib*.a
 %{_libdir}/pkgconfig/opencv.pc
 %doc %{_datadir}/opencv/doc
+%doc %dir %{_datadir}/opencv/samples
 %doc %{_datadir}/opencv/samples/c
 
 
 %files python
-%{pythondir}/opencv
-%if "%{pythondir}" != "%{pyexecdir}"
 %{pyexecdir}/opencv
-%endif
-
+%doc %dir %{_datadir}/opencv/samples
 %doc %{_datadir}/opencv/samples/python
 
 
 %changelog
+* Thu Mar 22 2007 Ralf Corsépius <rc040203@freenet.de> - 1.0.0-3
+- Fix %%{_datadir}/opencv/samples ownership.
+- Adjust timestamp of cvconfig.h.in to avoid re-running autoheader.
+
+* Thu Mar 22 2007 Ralf Corsépius <rc040203@freenet.de> - 1.0.0-2
+- Move all of the python module to pyexecdir (BZ 233128).
+- Activate the testsuite.
+
 * Mon Dec 11 2006 Ralf Corsépius <rc040203@freenet.de> - 1.0.0-1
 - Upstream update.
 
