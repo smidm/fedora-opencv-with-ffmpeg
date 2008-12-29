@@ -5,12 +5,12 @@
 
 Name:           opencv
 Version:        1.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Collection of algorithms for computer vision
 
 Group:          Development/Libraries
 License:        Intel Open Source License
-URL:            http://www.intel.com/technology/computing/opencv/index.htm
+URL:            http://opencv.willowgarage.com/wiki/
 Source0:        http://prdownloads.sourceforge.net/opencvlibrary/opencv-%{version}.tar.gz
 Source1:        opencv-samples-Makefile
 Patch0:         opencv-1.0.0-pythondir.diff
@@ -129,6 +129,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Dec 29 2008 Rakesh Pandit <rakesh@fedoraproject.org> 1.0.0-9
+- fix URL flag
+
 * Sun May 11 2008 Ralf Corsépius <rc040203@freenet.de> - 1.0.0-8
 - Adjust library order in opencv.pc.in (BZ 445937).
 
