@@ -5,13 +5,13 @@
 
 Name:           opencv
 Version:        1.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Collection of algorithms for computer vision
 
 Group:          Development/Libraries
 # This is normal three clause BSD.
 License:        BSD
-URL:            http://www.intel.com/technology/computing/opencv/index.htm
+URL:            http://opencv.willowgarage.com/wiki/
 Source0:        http://prdownloads.sourceforge.net/opencvlibrary/opencv-%{version}.tar.gz
 Source1:        opencv-samples-Makefile
 Patch0:         opencv-1.0.0-pythondir.diff
@@ -130,6 +130,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Dec 29 2008 Rakesh Pandit <rakesh@fedoraproject.org> - 1.0.0-10
+- fix URL field
+
 * Thu May 22 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 1.0.0-9
 - fix license tag
 
