@@ -3,7 +3,7 @@
 
 Name:           opencv
 Version:        1.1.0
-Release:        0.7.pre1%{?dist}
+Release:        0.8.pre1%{?dist}
 Summary:        Collection of algorithms for computer vision
 
 Group:          Development/Libraries
@@ -158,12 +158,17 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files python
+%defattr(-,root,root,-)
 %{python_sitearch}/opencv
 %doc %dir %{_datadir}/opencv/samples
 %doc %{_datadir}/opencv/samples/python
 
 
 %changelog
+* Tue Jan 12 2010 Haïkel Guémar <karlthered@gmail.com> 1.1.0-0.8.pre1
+- backport rpmlint spec issues fixes
+- backport updated opencv-samples-Makefile (Thanks Scott Tsai) #553697
+
 * Thu Sep 10 2009 Karsten Hopp <karsten@redhat.com> 1.1.0-0.7.pre1
 - fix build on s390x where we don't have libraw1394 and devel
 
