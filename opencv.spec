@@ -3,7 +3,7 @@
 
 Name:           opencv
 Version:        1.1.0
-Release:        0.8.pre1%{?dist}
+Release:        0.9.pre1%{?dist}
 Summary:        Collection of algorithms for computer vision
 
 Group:          Development/Libraries
@@ -23,7 +23,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  libtool
 
 BuildRequires:  gtk2-devel
-BuildRequires:  unicap-devel
+BuildRequires:  libucil-devel
 BuildRequires:  libtheora-devel
 BuildRequires:  libvorbis-devel
 %ifnarch s390 s390x
@@ -165,6 +165,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Feb 27 2010 Haïkel Guémar <karlthered@gmail.com> 1.1.0-0.9.pre1
+- replaced BR unicap-devel by libucil-devel (unicap split)
+
 * Tue Jan 12 2010 Haïkel Guémar <karlthered@gmail.com> 1.1.0-0.8.pre1
 - backport rpmlint spec issues fixes
 - backport updated opencv-samples-Makefile (Thanks Scott Tsai) #553697
