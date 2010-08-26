@@ -4,7 +4,7 @@
 
 Name:           opencv
 Version:        2.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Collection of algorithms for computer vision
 
 Group:          Development/Libraries
@@ -18,10 +18,13 @@ Patch0:         opencv-cmake-libdir.patch
 # Fixes memory corruption in the gaussian random number generator.
 # Fixed in the revision 2282 of the upstream svn repository.
 Patch1:         opencv-2.0.0-gaussianrng.patch
+# OpenCVConfig.cmake: backport support for OpenCV_INCLUDE_DIRS from 2.1
+# and move to %{_libdir} to avoid multilib conflicts
+Patch2:         opencv-2.0.0-opencvconfig.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  libtool
-BuildRequires:  cmake >= 2.4
+BuildRequires:  cmake >= 2.6.3
 
 BuildRequires:  gtk2-devel
 BuildRequires:  libucil-devel
@@ -86,10 +89,11 @@ This package contains Python bindings for the OpenCV library.
 %setup -q -n %{tar_name}-%{version}
 %patch0 -p1
 %patch1 -p2 -b .gaussianrng
+%patch2 -p1 -b .opencvconfig
 
 %build
 
-%ifarch i386
+%ifarch i386 
 export CXXFLAGS="%{__global_cflags} -m32 -fasynchronous-unwind-tables"
 %endif
 
@@ -97,7 +101,8 @@ export CXXFLAGS="%{__global_cflags} -m32 -fasynchronous-unwind-tables"
 # enabled by default if libraries are presents at build time:
 # GTK, GSTREAMER, UNICAP, 1394, V4L
 # non available on Fedora: FFMPEG, XINE
-%cmake -DENABLE_OPENMP=1\
+%cmake -DENABLE_OPENMP=1 \
+ %{?_cmake_skip_rpath} \
  %{?_without_gstreamer:-DWITH_GSTREAMER=0} \
  %{!?_with_ffmpeg:-DWITH_FFMPEG=0} \
  %{!?_with_xine:-DWITH_XINE=0} \
@@ -162,7 +167,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/opencv
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/opencv.pc
-%{_datadir}/opencv/OpenCVConfig.cmake
+%{_libdir}/cmake/
 
 %files devel-docs
 %defattr(-,root,root,-)
@@ -184,6 +189,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Aug 25 2010 Rex Dieter <rdieter@fedoraproject.org> 2.0.0-9
+- OpenCVConfig.cmake: backport support for OpenCV_INCLUDE_DIRS,
+  with similar multilib fixes from f14+ (see bug #627359)
+- %%build: +%%{?_cmake_skip_rpath}
+
 * Mon Mar 08 2010 Karel Klic <kklic@redhat.com> - 2.0.0-8
 - re-enable testing on CMake build system
 - fix memory corruption in the gaussian random number generator
