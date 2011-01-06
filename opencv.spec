@@ -4,7 +4,7 @@
 
 Name:           opencv
 Version:        2.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Collection of algorithms for computer vision
 
 Group:          Development/Libraries
@@ -115,6 +115,12 @@ find -perm 755 -name "*.c" -exec chmod -x  {} ';'
 # fix dos end of lines
 sed -i 's|\r||g'  samples/c/adaptiveskindetector.cpp
 
+#Fix Flags
+sed -i -e 's/USE_O3 ON/USE_O3 OFF/' CMakeLists.txt
+%ifarch %{ix86}
+sed -i -e 's/ENABLE_SSE ON/ENABLE_SSE OFF/' CMakeLists.txt
+sed -i -e 's/ENABLE_SSE2 ON/ENABLE_SSE2 OFF/' CMakeLists.txt
+%endif
 
 %build
 # enabled by default if libraries are presents at build time:
@@ -215,6 +221,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 06 2011 Nicolas Chauvet <kwizart@gmail.com> - 2.1.0-6
+- Disable -msse and -msse2 on x86_32
+
 * Wed Aug 25 2010 Rex Dieter <rdieter@fedoraproject.org> - 2.1.0-5
 - -devel: include OpenCVConfig.cmake (#627359)
 
