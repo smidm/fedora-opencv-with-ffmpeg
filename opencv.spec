@@ -4,7 +4,7 @@
 
 Name:           opencv
 Version:        2.2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Collection of algorithms for computer vision
 
 Group:          Development/Libraries
@@ -243,6 +243,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 13 2012 Nicolas Chauvet <kwizart@gmail.com> - 2.2.0-7
+- Fix for ARM build
+
 * Thu May 26 2011 Nicolas Chauvet <kwizart@gmail.com> - 2.2.0-6
 - Backport fixes from branch 2.2 to date
 
