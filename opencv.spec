@@ -5,7 +5,7 @@
 
 Name:           opencv
 Version:        2.3.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Collection of algorithms for computer vision
 
 Group:          Development/Libraries
@@ -217,6 +217,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon May 27 2013 Petr Machata <pmachata@redhat.com> - 2.3.1-9
+- Rebuild for TBB memory barrier bug
+
 * Tue Feb 28 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.3.1-8
 - Rebuilt for c++ ABI breakage
 
