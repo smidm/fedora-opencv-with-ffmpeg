@@ -1,7 +1,7 @@
 #global indice   a
 
 Name:           opencv
-Version:        2.4.5
+Version:        2.4.6.1
 Release:        1%{?dist}
 Summary:        Collection of algorithms for computer vision
 
@@ -12,8 +12,8 @@ URL:            http://opencv.org
 # Need to remove SIFT/SURF from source tarball, due to legal concerns
 # rm -rf opencv-%%{version}/modules/nonfree/src/sift.cpp
 # rm -rf opencv-%%{version}/modules/nonfree/src/surf.cpp
-# Source0:        http://downloads.sourceforge.net/opencvlibrary/%{name}-%{version}%{?indice}.tar.bz2
-Source0:	%{name}-%{version}%{?indice}-clean.tar.xz
+#Source0:        http://downloads.sourceforge.net/opencvlibrary/opencv-unix/%{version}/%{name}-%{version}%{?indice}.tar.gz
+Source0:	%{name}-clean-%{version}%{?indice}.tar.xz
 Source1:        opencv-samples-Makefile
 Patch0:         opencv-pkgcmake.patch
 Patch1:         opencv-pkgcmake2.patch
@@ -256,6 +256,9 @@ popd
 
 
 %changelog
+* Wed Jul 24 2013 Nicolas Chauvet <kwizart@gmail.com> - 2.4.6.1-1
+- Update to 2.4.6.1
+
 * Thu May 23 2013 Nicolas Chauvet <kwizart@gmail.com> - 2.4.5-1
 - Update to 2.4.5-clean
 - Spec file clean-up
@@ -381,7 +384,7 @@ popd
 * Tue Apr 13 2010 Karel Klic <kklic@redhat.com> - 2.0.0-10
 - Fix nonstandard executable permissions
 
-* Mon Mar 09 2010 Karel Klic <kklic@redhat.com> - 2.0.0-9
+* Tue Mar 09 2010 Karel Klic <kklic@redhat.com> - 2.0.0-9
 - apply the previously added patch
 
 * Mon Mar 08 2010 Karel Klic <kklic@redhat.com> - 2.0.0-8
@@ -421,10 +424,10 @@ popd
 * Thu Sep 10 2009 Karsten Hopp <karsten@redhat.com> - 1.1.0-0.7.pre1
 - fix build on s390x where we don't have libraw1394 and devel
 
-* Fri Jul 30 2009 Haïkel Guémar <karlthered@gmail.com> - 1.1.0.0.6.pre1
+* Thu Jul 30 2009 Haïkel Guémar <karlthered@gmail.com> - 1.1.0.0.6.pre1
 - Fix typo I introduced that prevented build on i386/i586
 
-* Fri Jul 30 2009 Haïkel Guémar <karlthered@gmail.com> - 1.1.0.0.5.pre1
+* Thu Jul 30 2009 Haïkel Guémar <karlthered@gmail.com> - 1.1.0.0.5.pre1
 - Added 1394 libs and unicap support
 
 * Sat Jul 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.0-0.4.pre1
