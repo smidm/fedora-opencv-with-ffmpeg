@@ -2,9 +2,8 @@
 
 Name:           opencv
 Version:        2.4.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Collection of algorithms for computer vision
-
 Group:          Development/Libraries
 # This is normal three clause BSD.
 License:        BSD
@@ -67,7 +66,7 @@ BuildRequires:  python-sphinx
 %{?_with_ffmpeg:BuildRequires:  ffmpeg-devel >= 0.4.9}
 %{!?_without_gstreamer:BuildRequires:  gstreamer-devel gstreamer-plugins-base-devel}
 %{?_with_xine:BuildRequires:  xine-lib-devel}
-
+BuildRequires:  opencl-headers
 
 Requires:       opencv-core%{_isa} = %{version}-%{release}
 
@@ -89,7 +88,6 @@ This package contains the OpenCV C/C++ core libraries.
 Summary:        Development files for using the OpenCV library
 Group:          Development/Libraries
 Requires:       opencv%{_isa} = %{version}-%{release}
-Requires:       pkgconfig
 
 %description devel
 This package contains the OpenCV C/C++ library and header files, as well as
@@ -110,7 +108,7 @@ This package contains the OpenCV documentation and examples programs.
 %package python
 Summary:        Python bindings for apps which use OpenCV
 Group:          Development/Libraries
-Requires:       opencv = %{version}-%{release}
+Requires:       opencv%{_isa} = %{version}-%{release}
 Requires:       numpy
 
 %description python
@@ -136,7 +134,7 @@ sed -i 's|\r||g'  samples/c/adaptiveskindetector.cpp
 mkdir -p build
 pushd build
 %cmake CMAKE_VERBOSE=1 \
- -DPYTHON_PACKAGES_PATH=%{python_sitearch} \
+ -DPYTHON_PACKAGES_PATH=%{python2_sitearch} \
  -DCMAKE_SKIP_RPATH=ON \
 %ifnarch x86_64 ia64
  -DENABLE_SSE=0 \
@@ -168,6 +166,7 @@ pushd build
  %{!?_with_xine:-DWITH_XINE=0} \
  -DINSTALL_C_EXAMPLES=1 \
  -DINSTALL_PYTHON_EXAMPLES=1 \
+ -DOPENCL_INCLUDE_DIR=${_includedir}/CL \
  ..
 
 make VERBOSE=1 %{?_smp_mflags}
@@ -239,7 +238,7 @@ popd
 %{_libdir}/libopencv_ml.so.2.4*
 %{_libdir}/libopencv_photo.so.2.4*
 %{_libdir}/libopencv_video.so.2.4*
-
+%{_libdir}/libopencv_ocl.so.2.4*
 
 %files devel
 %{_includedir}/opencv
@@ -255,11 +254,13 @@ popd
 %doc %{_datadir}/OpenCV/samples
 
 %files python
-%{python_sitearch}/cv.py*
-%{python_sitearch}/cv2.so
-
+%{python2_sitearch}/cv.py*
+%{python2_sitearch}/cv2.so
 
 %changelog
+* Thu Jan 16 2014 Christopher Meng <rpm@cicku.me> - 2.4.7-3
+- Enable OpenCL support.
+
 * Mon Nov 18 2013 Rex Dieter <rdieter@fedoraproject.org> 2.4.7-2
 - OpenCV cmake configuration broken (#1031312)
 
