@@ -1,6 +1,6 @@
 #global indice   a
-%bcond_with    ffmpeg
-%bcond_without gstreamer
+%bcond_without    ffmpeg
+%bcond_with gstreamer
 %bcond_with    eigen2
 %bcond_with    eigen3
 %bcond_with    openni
