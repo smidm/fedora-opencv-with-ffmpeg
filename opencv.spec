@@ -1,6 +1,6 @@
 #global indice   a
-%bcond_with    ffmpeg
-%bcond_without gstreamer
+%bcond_without    ffmpeg
+%bcond_with gstreamer
 %bcond_with    eigen2
 %bcond_with    eigen3
 %bcond_with    openni
@@ -18,7 +18,7 @@
 
 Name:           opencv
 Version:        3.1.0
-Release:        8%{?dist}
+Release:        11%{?dist}
 Summary:        Collection of algorithms for computer vision
 Group:          Development/Libraries
 # This is normal three clause BSD.
@@ -361,6 +361,15 @@ popd
 %{_libdir}/libopencv_xphoto.so.3.1*
 
 %changelog
+* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 3.1.0-11
+- Rebuild for Python 3.6
+
+* Sat Dec 03 2016 Rex Dieter <rdieter@fedoraproject.org> - 3.1.0-10
+- rebuild (jasper)
+
+* Sat Nov 19 2016 Orion Poplawski <orion@cora.nwra.com> - 3.1.0-9
+- Rebuild for protobuf 3.1.0
+
 * Tue Jul 26 2016 Nicolas Chauvet <kwizart@gmail.com> - 3.1.0-8
 - Clean uneeded symbols until fixed upstream
 
